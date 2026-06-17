@@ -1,0 +1,42 @@
+<view class="container">
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="empty-state">
+    <text class="empty-state-icon">⏳</text>
+    <text class="empty-state-text">加载中...</text>
+  </view>
+
+  <!-- 分享不存在或已过期 -->
+  <view wx:elif="{{notFound || expired}}" class="empty-state">
+    <text class="empty-state-icon">{{expired ? '⏰' : '🔍'}}</text>
+    <text class="empty-state-text">
+      {{expired ? '该分享已过期（7天有效期）' : '分享不存在'}}
+    </text>
+    <view class="btn-primary btn-start" bindtap="goToApp">打开天天记</view>
+  </view>
+
+  <!-- 分享内容 -->
+  <block wx:else>
+    <view class="detail-toolbar">
+      <view class="toolbar-date">{{createdAt}}</view>
+      <view class="toolbar-right">
+        <text class="tool-hint">📤 好友分享</text>
+      </view>
+    </view>
+
+    <view wx:if="{{mood}}" class="detail-meta">
+      <mood-icon mood="{{mood}}" size="sm" />
+    </view>
+
+    <view wx:if="{{title}}" class="detail-title">{{title}}</view>
+
+    <view class="detail-content">
+      <markdown-view content="{{content}}" />
+    </view>
+
+    <!-- 底部引流 -->
+    <view class="share-footer">
+      <text class="share-footer-text">本文档 7 天后自动过期</text>
+      <view class="btn-primary btn-sm" bindtap="goToApp">下载天天记，记录你的生活</view>
+    </view>
+  </block>
+</view>

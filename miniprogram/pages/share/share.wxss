@@ -1,0 +1,24 @@
+/* pages/share/share.wxss */
+
+.container {
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+.tool-hint {
+  font-size: 24rpx;
+  color: var(--color-text-hint);
+}
+
+.share-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  gap: var(--spacing-md);
+}
+
+.share-footer-text {
+  font-size: 24rpx;
+  color: var(--color-text-hint);
+}
