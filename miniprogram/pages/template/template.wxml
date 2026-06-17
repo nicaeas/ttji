@@ -1,0 +1,173 @@
+<view class="container">
+  <!-- 页头 -->
+  <view class="page-header">
+    <view class="page-title">日记模板</view>
+  </view>
+
+  <!-- 预设模板 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">📋 预设模板</text>
+      <text class="section-hint">点击使用</text>
+    </view>
+
+    <view class="template-grid">
+      <view
+        wx:for="{{presetTemplates}}"
+        wx:key="id"
+        class="template-card card"
+        data-template="{{item}}"
+        bindtap="useTemplate"
+      >
+        <view class="tpl-icon">{{item.icon}}</view>
+        <view class="tpl-info">
+          <text class="tpl-name">{{item.name}}</text>
+          <text class="tpl-desc">{{item.description}}</text>
+        </view>
+        <view class="tpl-arrow">→</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分隔线 -->
+  <view class="divider-dashed"></view>
+
+  <!-- 自定义模板 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">✨ 我的模板</text>
+      <view class="section-action" bindtap="openNewTemplate">
+        <text>+ 新建</text>
+      </view>
+    </view>
+
+    <!-- 自定义模板列表 -->
+    <view wx:if="{{customTemplates.length > 0}}" class="template-grid">
+      <view
+        wx:for="{{customTemplates}}"
+        wx:key="id"
+        class="template-card card custom-card"
+        data-template="{{item}}"
+        bindtap="useTemplate"
+      >
+        <view class="tpl-icon">{{item.icon}}</view>
+        <view class="tpl-info">
+          <text class="tpl-name">{{item.name}}</text>
+          <text class="tpl-desc">{{previewText.previewText(item.structure.content)}}</text>
+        </view>
+        <view class="tpl-actions">
+          <view
+            class="tpl-action-btn"
+            data-template="{{item}}"
+            catchtap="editCustomTemplate"
+          >
+            <text>✏️</text>
+          </view>
+          <view
+            class="tpl-action-btn tpl-delete"
+            data-template="{{item}}"
+            catchtap="deleteCustomTemplate"
+          >
+            <text>🗑️</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 无自定义模板 -->
+    <view wx:if="{{customTemplates.length === 0}}" class="empty-state-sm">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">还没有自定义模板</text>
+      <text class="empty-hint">点击上方"+ 新建"创建专属模板</text>
+    </view>
+  </view>
+
+  <!-- ==================== 新建/编辑模板弹窗 ==================== -->
+  <view wx:if="{{showEditor}}" class="modal-mask" bindtap="closeEditor">
+    <view class="modal-content template-editor" catchtap="preventBubble">
+      <view class="modal-header">
+        <text>{{editingTemplate ? '编辑模板' : '新建模板'}}</text>
+      </view>
+
+      <!-- 模板名称 -->
+      <view class="editor-field">
+        <text class="editor-label">模板名称</text>
+        <input
+          class="editor-input"
+          placeholder="如：健身日记"
+          value="{{templateName}}"
+          bindinput="onNameInput"
+          maxlength="20"
+        />
+      </view>
+
+      <!-- 图标选择 -->
+      <view class="editor-field">
+        <text class="editor-label">图标</text>
+        <scroll-view scroll-x class="icon-scroll">
+          <view class="icon-grid">
+            <view
+              wx:for="{{iconOptions}}"
+              wx:key="*this"
+              class="icon-option {{templateIcon === item ? 'icon-selected' : ''}}"
+              data-icon="{{item}}"
+              bindtap="onSelectIcon"
+            >{{item}}</view>
+          </view>
+        </scroll-view>
+      </view>
+
+      <!-- 默认心情 -->
+      <view class="editor-field">
+        <text class="editor-label">默认心情</text>
+        <scroll-view scroll-x class="mood-scroll">
+          <view class="mood-grid">
+            <view
+              wx:for="{{moodOptions}}"
+              wx:key="id"
+              class="mood-option {{templateMood === item.id ? 'mood-selected' : ''}}"
+              data-mood="{{item.id}}"
+              bindtap="onSelectTemplateMood"
+            >
+              <text class="mood-emoji">{{item.emoji}}</text>
+              <text class="mood-label">{{item.label}}</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+
+      <!-- 模板内容 -->
+      <view class="editor-field">
+        <text class="editor-label">模板内容（支持 Markdown）</text>
+        <textarea
+          class="editor-textarea"
+          placeholder="## 标题\n\n内容..."
+          value="{{templateContent}}"
+          bindinput="onContentInput"
+          auto-height
+          maxlength="2000"
+        />
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="editor-footer">
+        <view class="btn-ghost" bindtap="closeEditor">取消</view>
+        <view class="btn-primary" bindtap="saveCustomTemplate">保存模板</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 模板内容预览 WXS 过滤器 -->
+<wxs module="previewText">
+  function previewText(text) {
+    if (!text) return '';
+    var reg = getRegExp('[#*`>\\-\\[\\]()]', 'g');
+    var cleaned = text.replace(reg, '');
+    if (cleaned.length > 30) {
+      return cleaned.substring(0, 30) + '...';
+    }
+    return cleaned;
+  }
+  module.exports = previewText;
+</wxs>

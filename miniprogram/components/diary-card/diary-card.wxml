@@ -1,0 +1,36 @@
+<view class="diary-card card" bindtap="onTap" bindlongpress="onLongPress">
+  <!-- 卡片头部：日期 + 心情 -->
+  <view class="card-header">
+    <view class="card-date">
+      <text class="date-dot">·</text>
+      <text>{{displayDate}}</text>
+    </view>
+    <mood-icon
+      wx:if="{{moodData}}"
+      mood="{{diary.mood}}"
+      size="sm"
+    />
+  </view>
+
+  <!-- 标题 -->
+  <view wx:if="{{diary.title}}" class="card-title text-clamp-2">
+    {{diary.title}}
+  </view>
+  <view wx:else class="card-title card-title-placeholder">
+    无标题
+  </view>
+
+  <!-- 内容预览 -->
+  <view wx:if="{{previewText}}" class="card-preview text-clamp-3">
+    {{previewText}}
+  </view>
+
+  <!-- 底部：分类 + 时间 -->
+  <view class="card-footer">
+    <view wx:if="{{categoryData}}" class="card-category tag tag-sm">
+      <text>{{categoryData.icon}} {{categoryData.name}}</text>
+    </view>
+    <view wx:else class="card-category-placeholder"></view>
+    <text class="card-time">{{diary.updatedAt !== diary.createdAt ? '已编辑' : ''}}</text>
+  </view>
+</view>

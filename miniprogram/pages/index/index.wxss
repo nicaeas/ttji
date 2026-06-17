@@ -1,0 +1,236 @@
+/* pages/index/index.wxss - 日记列表页样式 */
+
+.container {
+  padding: var(--spacing-md);
+  padding-bottom: 160rpx;
+}
+
+/* 页头 */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0 var(--spacing-md);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 3rpx;
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.header-btn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  background-color: var(--color-bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  font-size: 28rpx;
+}
+
+.filter-badge {
+  position: absolute;
+  top: -6rpx;
+  right: -6rpx;
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 16rpx;
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 统计栏 */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+  margin-top: 4rpx;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 48rpx;
+  background-color: var(--color-accent-light);
+}
+
+/* 搜索栏 */
+.search-bar {
+  margin-bottom: var(--spacing-md);
+}
+
+.search-clear {
+  padding: 8rpx;
+  color: var(--color-text-hint);
+  font-size: 24rpx;
+}
+
+/* 筛选面板 */
+.filter-panel {
+  margin-bottom: var(--spacing-md);
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.filter-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.filter-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.filter-label {
+  font-size: 24rpx;
+  color: var(--color-text-hint);
+  margin-bottom: var(--spacing-xs);
+  display: block;
+}
+
+.filter-scroll {
+  white-space: nowrap;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 10rpx 20rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  background-color: var(--color-bg-warm);
+  color: var(--color-text-secondary);
+  border: 2rpx solid transparent;
+  transition: all 0.2s ease;
+}
+
+.chip-active {
+  background-color: var(--color-accent-light);
+  color: var(--color-accent-dark);
+  border-color: var(--color-accent);
+  font-weight: 500;
+}
+
+.mood-chip {
+  white-space: nowrap;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  border-top: 1rpx solid var(--color-accent-light);
+}
+
+.btn-sm {
+  padding: 12rpx 32rpx;
+  font-size: 26rpx;
+}
+
+/* 日期分组标题 */
+.date-header {
+  display: flex;
+  align-items: baseline;
+  padding: var(--spacing-md) 0 var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.date-text {
+  font-family: var(--font-display);
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-accent-dark);
+}
+
+.date-count {
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+  margin-left: var(--spacing-sm);
+}
+
+/* 空状态 */
+.empty-state {
+  padding-top: 120rpx;
+}
+
+.btn-start {
+  margin-top: var(--spacing-lg);
+}
+
+/* 多选操作栏 */
+.select-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-bg-card);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 -4rpx 16rpx rgba(61, 50, 38, 0.08);
+  z-index: 200;
+}
+
+.select-count {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.select-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.select-cancel {
+  color: var(--color-text-secondary);
+}

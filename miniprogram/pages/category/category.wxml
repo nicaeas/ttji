@@ -1,0 +1,124 @@
+<view class="container">
+  <!-- 页头 -->
+  <view class="page-header">
+    <view class="page-title">分类管理</view>
+    <view class="header-action" bindtap="openNewCategory">
+      <text>+ 新建分类</text>
+    </view>
+  </view>
+
+  <!-- 分类列表 -->
+  <view wx:if="{{categories.length > 0}}" class="category-list">
+    <view
+      wx:for="{{categories}}"
+      wx:key="id"
+      class="category-card card"
+      data-category="{{item}}"
+    >
+      <!-- 分类主体（点击查看日记） -->
+      <view class="cat-main" data-category="{{item}}" bindtap="viewCategoryDiaries">
+        <view
+          class="cat-icon"
+          style="background-color: {{item.color}}18;"
+        >
+          <text>{{item.icon}}</text>
+        </view>
+        <view class="cat-info">
+          <text class="cat-name">{{item.name}}</text>
+          <text class="cat-count">{{categoryCounts[item.id] || 0}} 篇日记</text>
+        </view>
+        <view class="cat-progress">
+          <view
+            class="cat-bar"
+            style="width: {{(categoryCounts[item.id] || 0) * 8}}rpx; background-color: {{item.color}};"
+          ></view>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="cat-actions">
+        <view
+          class="cat-action-btn"
+          data-category="{{item}}"
+          catchtap="editCategory"
+        >
+          <text>✏️</text>
+        </view>
+        <view
+          class="cat-action-btn cat-delete"
+          data-category="{{item}}"
+          catchtap="deleteCategoryHandler"
+        >
+          <text>🗑️</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{categories.length === 0}}" class="empty-state">
+    <text class="empty-state-icon">📂</text>
+    <text class="empty-state-text">还没有分类</text>
+    <view class="btn-primary btn-start" bindtap="openNewCategory">
+      创建第一个分类
+    </view>
+  </view>
+
+  <!-- ==================== 新建/编辑分类弹窗 ==================== -->
+  <view wx:if="{{showEditor}}" class="modal-mask" bindtap="closeEditor">
+    <view class="modal-content category-editor" catchtap="preventBubble">
+      <view class="modal-header">
+        <text>{{editingCategory ? '编辑分类' : '新建分类'}}</text>
+      </view>
+
+      <!-- 分类名称 -->
+      <view class="editor-field">
+        <text class="editor-label">分类名称</text>
+        <input
+          class="editor-input"
+          placeholder="如：读书笔记"
+          value="{{categoryName}}"
+          bindinput="onNameInput"
+          maxlength="10"
+        />
+      </view>
+
+      <!-- 图标选择 -->
+      <view class="editor-field">
+        <text class="editor-label">图标</text>
+        <view class="icon-grid-wrap">
+          <view
+            wx:for="{{iconOptions}}"
+            wx:key="*this"
+            class="icon-option {{categoryIcon === item ? 'icon-selected' : ''}}"
+            data-icon="{{item}}"
+            bindtap="onSelectIcon"
+          >{{item}}</view>
+        </view>
+      </view>
+
+      <!-- 颜色选择 -->
+      <view class="editor-field">
+        <text class="editor-label">颜色</text>
+        <view class="color-grid">
+          <view
+            wx:for="{{colorOptions}}"
+            wx:key="*this"
+            class="color-option {{categoryColor === item ? 'color-selected' : ''}}"
+            style="background-color: {{item}};"
+            data-color="{{item}}"
+            bindtap="onSelectColor"
+          >
+            <text wx:if="{{categoryColor === item}}" class="color-check">✓</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="editor-footer">
+        <view class="btn-ghost" bindtap="closeEditor">取消</view>
+        <view class="btn-primary" bindtap="saveCategoryHandler">保存</view>
+      </view>
+    </view>
+  </view>
+</view>

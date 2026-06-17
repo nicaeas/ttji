@@ -1,0 +1,85 @@
+<view class="md-container">
+  <block wx:for="{{tokens}}" wx:key="index">
+
+    <!-- 标题 -->
+    <view wx:if="{{item.type === 'heading'}}" class="md-heading md-h{{item.level}}">
+      <block wx:for="{{item.content}}" wx:for-item="inline" wx:key="iidx">
+        <text wx:if="{{inline.type === 'text'}}">{{inline.text}}</text>
+        <text wx:elif="{{inline.type === 'bold'}}" class="md-bold">{{inline.content[0].text}}</text>
+        <text wx:elif="{{inline.type === 'italic'}}" class="md-italic">{{inline.content[0].text}}</text>
+        <text wx:elif="{{inline.type === 'inline-code'}}" class="md-inline-code">{{inline.text}}</text>
+        <text wx:elif="{{inline.type === 'strikethrough'}}" class="md-strikethrough">{{inline.text}}</text>
+        <text wx:elif="{{inline.type === 'link'}}" class="md-link">{{inline.text}}</text>
+      </block>
+    </view>
+
+    <!-- 段落 -->
+    <view wx:elif="{{item.type === 'paragraph'}}" class="md-paragraph">
+      <block wx:for="{{item.content}}" wx:for-item="inline" wx:key="iidx">
+        <text wx:if="{{inline.type === 'text'}}">{{inline.text}}</text>
+        <text wx:elif="{{inline.type === 'bold'}}" class="md-bold">
+          <block wx:for="{{inline.content}}" wx:for-item="sub" wx:key="sidx">
+            <text wx:if="{{sub.type === 'text'}}">{{sub.text}}</text>
+            <text wx:elif="{{sub.type === 'italic'}}" class="md-italic">{{sub.content[0].text}}</text>
+          </block>
+        </text>
+        <text wx:elif="{{inline.type === 'italic'}}" class="md-italic">
+          <block wx:for="{{inline.content}}" wx:for-item="sub" wx:key="sidx">
+            <text wx:if="{{sub.type === 'text'}}">{{sub.text}}</text>
+          </block>
+        </text>
+        <text wx:elif="{{inline.type === 'inline-code'}}" class="md-inline-code">{{inline.text}}</text>
+        <text wx:elif="{{inline.type === 'strikethrough'}}" class="md-strikethrough">{{inline.text}}</text>
+        <text wx:elif="{{inline.type === 'link'}}" class="md-link">{{inline.text}}</text>
+      </block>
+    </view>
+
+    <!-- 引用 -->
+    <view wx:elif="{{item.type === 'quote'}}" class="md-quote">
+      <text>{{item.content}}</text>
+    </view>
+
+    <!-- 代码块 -->
+    <view wx:elif="{{item.type === 'code'}}" class="md-code-block">
+      <view wx:if="{{item.lang}}" class="md-code-lang">{{item.lang}}</view>
+      <text class="md-code-content">{{item.content}}</text>
+    </view>
+
+    <!-- 无序列表 -->
+    <view wx:elif="{{item.type === 'unordered-list'}}" class="md-list">
+      <view wx:for="{{item.items}}" wx:for-item="li" wx:key="lidx" class="md-list-item">
+        <text class="md-list-bullet">•</text>
+        <view class="md-list-content">
+          <block wx:for="{{li.content}}" wx:for-item="inline" wx:key="iidx">
+            <text wx:if="{{inline.type === 'text'}}" class="">{{inline.text}}</text>
+            <text wx:elif="{{inline.type === 'bold'}}" class="md-bold">{{inline.content[0].text}}</text>
+            <text wx:elif="{{inline.type === 'italic'}}" class="md-italic">{{inline.content[0].text}}</text>
+            <text wx:elif="{{inline.type === 'inline-code'}}" class="md-inline-code">{{inline.text}}</text>
+          </block>
+        </view>
+      </view>
+    </view>
+
+    <!-- 有序列表 -->
+    <view wx:elif="{{item.type === 'ordered-list'}}" class="md-list">
+      <view wx:for="{{item.items}}" wx:for-item="li" wx:for-index="lidx" wx:key="lidx" class="md-list-item">
+        <text class="md-list-number">{{lidx + 1}}.</text>
+        <view class="md-list-content">
+          <block wx:for="{{li.content}}" wx:for-item="inline" wx:key="iidx">
+            <text wx:if="{{inline.type === 'text'}}" class="">{{inline.text}}</text>
+            <text wx:elif="{{inline.type === 'bold'}}" class="md-bold">{{inline.content[0].text}}</text>
+            <text wx:elif="{{inline.type === 'italic'}}" class="md-italic">{{inline.content[0].text}}</text>
+            <text wx:elif="{{inline.type === 'inline-code'}}" class="md-inline-code">{{inline.text}}</text>
+          </block>
+        </view>
+      </view>
+    </view>
+
+    <!-- 分隔线 -->
+    <view wx:elif="{{item.type === 'hr'}}" class="md-hr"></view>
+
+    <!-- 空行 -->
+    <view wx:elif="{{item.type === 'blank'}}" class="md-blank"></view>
+
+  </block>
+</view>

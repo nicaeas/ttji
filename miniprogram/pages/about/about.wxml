@@ -1,0 +1,67 @@
+<view class="container">
+  <!-- Logo & 标题 -->
+  <view class="about-hero">
+    <view class="hero-icon">📖</view>
+    <text class="hero-title">天天记</text>
+    <text class="hero-subtitle">记录生活的每一刻</text>
+    <text class="hero-version">v{{version}}</text>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view wx:if="{{stats}}" class="stats-card card">
+    <view class="stats-row">
+      <view class="stats-item">
+        <text class="stats-num">{{stats.total}}</text>
+        <text class="stats-label">总日记</text>
+      </view>
+      <view class="stats-div"></view>
+      <view class="stats-item">
+        <text class="stats-num">{{stats.thisWeek}}</text>
+        <text class="stats-label">本周新增</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能介绍 -->
+  <view class="section">
+    <text class="section-title">✨ 功能特性</text>
+    <view class="feature-list">
+      <view wx:for="{{features}}" wx:key="title" class="feature-card card">
+        <text class="feature-icon">{{item.icon}}</text>
+        <view class="feature-info">
+          <text class="feature-title">{{item.title}}</text>
+          <text class="feature-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 开发者信息 -->
+  <view class="section">
+    <text class="section-title">👨‍💻 开发者</text>
+    <view class="dev-card card">
+      <view class="dev-row">
+        <text class="dev-label">开发者</text>
+        <text class="dev-value">天天记团队</text>
+      </view>
+      <view class="dev-row">
+        <text class="dev-label">技术栈</text>
+        <text class="dev-value">微信小程序 · 原生框架</text>
+      </view>
+      <view class="dev-row">
+        <text class="dev-label">数据存储</text>
+        <text class="dev-value">本地安全存储</text>
+      </view>
+      <view class="dev-row">
+        <text class="dev-label">渲染引擎</text>
+        <text class="dev-value">自研 Markdown 解析器</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部信息 -->
+  <view class="about-footer">
+    <text class="footer-text">天天记 © 2026</text>
+    <text class="footer-text">让每一天都被温柔记录</text>
+  </view>
+</view>

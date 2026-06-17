@@ -1,0 +1,12 @@
+<view
+  class="mood-icon mood-{{size}} {{selected ? 'mood-selected' : ''}}"
+  style="{{moodData ? 'background-color: ' + moodData.color + '18;' : ''}}"
+  bindtap="onTap"
+>
+  <text class="mood-emoji">{{moodData ? moodData.emoji : '😶'}}</text>
+  <text
+    wx:if="{{showLabel && moodData}}"
+    class="mood-label"
+    style="color: {{moodData.color}};"
+  >{{moodData.label}}</text>
+</view>

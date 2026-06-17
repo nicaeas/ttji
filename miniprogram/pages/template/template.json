@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "mood-icon": "../../components/mood-icon/mood-icon"
+  },
+  "navigationBarTitleText": "模板"
+}

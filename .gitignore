@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Server uploads (don't track user content)
+server/uploads/images/*
+server/uploads/moods/*
+!server/uploads/images/.gitkeep
+!server/uploads/moods/.gitkeep
+
+# DB
+server/data.db
+*.db

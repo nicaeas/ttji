@@ -1,0 +1,36 @@
+.mood-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+  transition: all 0.2s ease;
+}
+
+.mood-sm {
+  padding: 4rpx 12rpx;
+  font-size: 24rpx;
+}
+
+.mood-md {
+  padding: 8rpx 20rpx;
+  font-size: 28rpx;
+}
+
+.mood-lg {
+  padding: 12rpx 28rpx;
+  font-size: 32rpx;
+}
+
+.mood-emoji {
+  line-height: 1;
+}
+
+.mood-label {
+  margin-left: 6rpx;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.mood-selected {
+  box-shadow: 0 0 0 3rpx currentColor;
+}

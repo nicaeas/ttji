@@ -1,0 +1,150 @@
+<view class="container">
+  <!-- 页头 -->
+  <view class="page-header">
+    <view class="page-title">天天记</view>
+    <view class="header-actions">
+      <view class="header-btn" bindtap="toggleSearch">
+        <text class="iconfont">{{showSearch ? '✕' : '🔍'}}</text>
+      </view>
+      <view class="header-btn filter-btn" bindtap="toggleFilterPanel">
+        <text>☰</text>
+        <view wx:if="{{activeFilters > 0}}" class="filter-badge">{{activeFilters}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计概览 -->
+  <view wx:if="{{stats && !isEmpty && !isSearchResult}}" class="stats-bar">
+    <view class="stat-item">
+      <text class="stat-num">{{stats.total}}</text>
+      <text class="stat-label">总篇数</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">{{stats.thisWeek}}</text>
+      <text class="stat-label">本周</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item" bindtap="toggleFilterPanel">
+      <text class="stat-num">{{activeFilters || '筛选'}}</text>
+      <text class="stat-label">条件</text>
+    </view>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view wx:if="{{showSearch}}" class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input
+      placeholder="搜索日记标题或内容..."
+      value="{{searchQuery}}"
+      bindinput="onSearchInput"
+      bindconfirm="onSearchConfirm"
+      confirm-type="search"
+    />
+    <text wx:if="{{searchQuery}}" class="search-clear" bindtap="onSearchClear">✕</text>
+  </view>
+
+  <!-- 筛选面板 -->
+  <view wx:if="{{showFilterPanel}}" class="filter-panel card">
+    <!-- 排序 -->
+    <view class="filter-section">
+      <text class="filter-label">排序方式</text>
+      <view class="filter-chips">
+        <view
+          wx:for="{{sortOptions}}"
+          wx:key="value"
+          class="chip {{selectedSort === item.value ? 'chip-active' : ''}}"
+          data-sort="{{item.value}}"
+          bindtap="onSelectSort"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <!-- 心情 -->
+    <view class="filter-section">
+      <text class="filter-label">按心情</text>
+      <scroll-view scroll-x class="filter-scroll">
+        <view class="filter-chips">
+          <view
+            wx:for="{{moodOptions}}"
+            wx:key="id"
+            class="chip mood-chip {{selectedMood === item.id ? 'chip-active' : ''}}"
+            data-mood="{{item.id}}"
+            bindtap="onSelectMood"
+          >
+            <text>{{item.emoji}} {{item.label}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 分类 -->
+    <view class="filter-section">
+      <text class="filter-label">按分类</text>
+      <scroll-view scroll-x class="filter-scroll">
+        <view class="filter-chips">
+          <view
+            wx:for="{{categoryOptions}}"
+            wx:key="id"
+            class="chip {{selectedCategoryId === item.id ? 'chip-active' : ''}}"
+            data-catid="{{item.id}}"
+            bindtap="onSelectCategory"
+          >
+            <text>{{item.icon}} {{item.name}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 筛选操作 -->
+    <view class="filter-actions">
+      <view class="btn-ghost" bindtap="clearFilters">清除筛选</view>
+      <view class="btn-primary btn-sm" bindtap="applyFilters">应用</view>
+    </view>
+  </view>
+
+  <!-- 日记列表 -->
+  <view wx:if="{{!isEmpty}}" class="diary-list">
+    <block wx:for="{{diaryGroups}}" wx:key="date">
+      <view class="date-header">
+        <text class="date-text">{{item.date}}</text>
+        <text class="date-count">{{item.diaries.length}} 篇</text>
+      </view>
+      <diary-card
+        wx:for="{{item.diaries}}"
+        wx:for-item="diary"
+        wx:key="id"
+        diary="{{diary}}"
+        bindtap="onDiaryTap"
+        bindlongpress="onDiaryLongPress"
+      />
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{isEmpty}}" class="empty-state">
+    <text class="empty-state-icon">
+      {{isSearchResult ? '🔍' : '📖'}}
+    </text>
+    <text class="empty-state-text">
+      {{isSearchResult ? '没有找到匹配的日记\n试试调整搜索条件' : '还没有日记\n点击右下角 + 开始记录吧'}}
+    </text>
+    <view wx:if="{{!isSearchResult}}" class="btn-primary btn-start" bindtap="goToNewDiary">
+      写第一篇日记
+    </view>
+  </view>
+
+  <!-- 多选操作栏 -->
+  <view wx:if="{{selectMode}}" class="select-bar">
+    <text class="select-count">已选 {{selectedIds.length}} 篇</text>
+    <view class="select-actions">
+      <view class="btn-ghost select-cancel" bindtap="exitSelectMode">取消</view>
+      <view class="btn-danger btn-sm" bindtap="batchDelete">删除</view>
+    </view>
+  </view>
+
+  <!-- 浮动新建按钮 -->
+  <view wx:if="{{!selectMode}}" class="fab" bindtap="goToNewDiary">
+    <text class="fab-text">+</text>
+  </view>
+</view>

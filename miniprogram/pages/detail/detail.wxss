@@ -1,0 +1,302 @@
+/* pages/detail/detail.wxss - 日记详情/编辑页样式 */
+
+.container {
+  min-height: 100vh;
+  padding-bottom: 80rpx;
+}
+
+/* ========== 查看模式工具栏 ========== */
+.detail-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin: var(--spacing-md);
+}
+
+.toolbar-date {
+  font-size: 24rpx;
+  color: var(--color-text-hint);
+}
+
+.toolbar-right {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.tool-btn {
+  padding: 8rpx 20rpx;
+  font-size: 26rpx;
+  color: var(--color-accent-dark);
+  border-radius: var(--radius-sm);
+}
+
+.tool-btn-danger {
+  color: var(--color-danger);
+}
+
+/* ========== 查看模式元数据 ========== */
+.detail-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.detail-category {
+  font-size: 24rpx;
+}
+
+/* ========== 标题 ========== */
+.detail-title {
+  font-family: var(--font-display);
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 0 var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.3;
+}
+
+/* ========== 内容 ========== */
+.detail-content {
+  padding: 0 var(--spacing-md) var(--spacing-xl);
+}
+
+/* ========== 底部编辑时间 ========== */
+.detail-updated {
+  padding: var(--spacing-md);
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+}
+
+/* ========== 编辑工具栏 ========== */
+.edit-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg-card);
+  border-bottom: 1rpx solid var(--color-accent-light);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.edit-toolbar-left,
+.edit-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.edit-toolbar-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.btn-save {
+  padding: 10rpx 28rpx;
+  font-size: 26rpx;
+  border-radius: var(--radius-md);
+}
+
+.preview-toggle {
+  color: var(--color-text-secondary);
+  font-size: 24rpx;
+}
+
+/* ========== 标题输入 ========== */
+.edit-title-wrap {
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-card);
+  margin: var(--spacing-md);
+  border-radius: var(--radius-md);
+}
+
+.edit-title-input {
+  font-family: var(--font-display);
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  width: 100%;
+}
+
+.placeholder {
+  color: var(--color-text-hint);
+  font-size: 28rpx;
+  font-weight: 400;
+}
+
+/* ========== 元数据选择行 ========== */
+.edit-meta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: 0 var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  padding: 6rpx 16rpx;
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+}
+
+.meta-arrow {
+  font-size: 20rpx;
+  color: var(--color-text-hint);
+  margin-left: 4rpx;
+}
+
+.tag-placeholder {
+  background-color: transparent;
+  color: var(--color-text-hint);
+  border: 1rpx dashed var(--color-text-hint);
+}
+
+/* ========== 内联选择面板 ========== */
+.inline-picker {
+  margin: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  animation: slideDown 0.2s ease;
+}
+
+.picker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.picker-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-warm);
+  min-width: 100rpx;
+  transition: all 0.15s ease;
+}
+
+.picker-item-active {
+  background-color: var(--color-accent-light);
+  box-shadow: 0 0 0 2rpx var(--color-accent);
+}
+
+.picker-emoji {
+  font-size: 36rpx;
+  margin-bottom: 4rpx;
+}
+
+.picker-label {
+  font-size: 22rpx;
+  color: var(--color-text-secondary);
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-size: 28rpx;
+}
+
+.picker-row-active {
+  background-color: var(--color-accent-light);
+}
+
+.picker-check {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* ========== 内容编辑器 ========== */
+.edit-content-wrap {
+  margin: 0 var(--spacing-md);
+  flex: 1;
+}
+
+.edit-content-hint {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  background-color: #FDF8F0;
+  border-radius: var(--radius-sm);
+  border-left: 4rpx solid var(--color-accent-light);
+}
+
+.edit-content-hint text {
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+  line-height: 1.5;
+}
+
+.edit-content-textarea {
+  width: 100%;
+  min-height: 500rpx;
+  font-size: 28rpx;
+  line-height: 1.8;
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+
+/* ========== 预览模式 ========== */
+.preview-banner {
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin: var(--spacing-md);
+  background-color: #FDF8F0;
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--color-accent-dark);
+}
+
+/* ========== 模态框 ========== */
+.modal-header {
+  font-family: var(--font-display);
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.modal-body {
+  font-size: 28rpx;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
+}
+
+.modal-footer {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.modal-footer .btn-ghost,
+.modal-footer .btn-danger {
+  flex: 1;
+  text-align: center;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: 28rpx;
+}

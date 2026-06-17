@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "diary-card": "../../components/diary-card/diary-card",
+    "mood-icon": "../../components/mood-icon/mood-icon"
+  },
+  "navigationBarTitleText": "天天记",
+  "enablePullDownRefresh": false
+}

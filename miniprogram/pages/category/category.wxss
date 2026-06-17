@@ -1,0 +1,197 @@
+/* pages/category/category.wxss */
+
+.container {
+  padding: var(--spacing-md);
+  padding-bottom: 60rpx;
+}
+
+.header-action {
+  font-size: 26rpx;
+  color: var(--color-accent);
+  font-weight: 500;
+  padding: 8rpx 20rpx;
+  background-color: var(--color-accent-light);
+  border-radius: var(--radius-md);
+}
+
+/* 分类卡片 */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.category-card {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  margin-bottom: 0;
+}
+
+.cat-main {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.cat-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.cat-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cat-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  display: block;
+}
+
+.cat-count {
+  font-size: 24rpx;
+  color: var(--color-text-hint);
+  margin-top: 4rpx;
+  display: block;
+}
+
+.cat-progress {
+  width: 80rpx;
+  height: 6rpx;
+  background-color: #F0EDE5;
+  border-radius: 3rpx;
+  overflow: hidden;
+  margin-left: var(--spacing-md);
+}
+
+.cat-bar {
+  height: 100%;
+  border-radius: 3rpx;
+  transition: width 0.4s ease;
+}
+
+.cat-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  margin-left: var(--spacing-sm);
+}
+
+.cat-action-btn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-bg-warm);
+  font-size: 24rpx;
+}
+
+.cat-delete {
+  color: var(--color-danger);
+}
+
+/* ========== 编辑器弹窗 ========== */
+.category-editor {
+  width: 84vw;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.editor-field {
+  margin-bottom: var(--spacing-md);
+}
+
+.editor-label {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+  display: block;
+}
+
+.editor-input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1rpx solid var(--color-accent-light);
+  border-radius: var(--radius-md);
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+/* 图标网格 */
+.icon-grid-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.icon-option {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-warm);
+  font-size: 28rpx;
+  transition: all 0.15s ease;
+}
+
+.icon-selected {
+  background-color: var(--color-accent-light);
+  box-shadow: 0 0 0 2rpx var(--color-accent);
+}
+
+/* 颜色网格 */
+.color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.color-option {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.color-selected {
+  box-shadow: 0 0 0 4rpx currentColor;
+  transform: scale(1.15);
+}
+
+.color-check {
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.editor-footer {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+  padding-top: var(--spacing-md);
+  border-top: 1rpx solid var(--color-accent-light);
+}
+
+.editor-footer .btn-primary {
+  padding: 12rpx 32rpx;
+  font-size: 26rpx;
+}
