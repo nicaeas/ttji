@@ -5,7 +5,8 @@
     "pages/template/template",
     "pages/category/category",
     "pages/about/about",
-    "pages/share/share"
+    "pages/share/share",
+    "pages/privacy/privacy"
   ],
   "window": {
     "navigationBarBackgroundColor": "#F5F0E8",

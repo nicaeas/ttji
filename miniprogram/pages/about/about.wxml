@@ -59,9 +59,33 @@
     </view>
   </view>
 
+  <!-- 云同步权益 -->
+  <view class="section">
+    <text class="section-title">☁️ 云同步</text>
+    <view class="dev-card card">
+      <view class="dev-row">
+        <text class="dev-label">状态</text>
+        <text class="dev-value">{{cloudSyncActive ? '已激活' : '未激活'}}</text>
+      </view>
+      <view wx:if="{{cloudSyncActive}}" class="dev-row">
+        <text class="dev-label">到期时间</text>
+        <text class="dev-value">{{cloudSyncExpires}}</text>
+      </view>
+      <view wx:if="{{!cloudSyncActive}}" class="dev-row">
+        <text class="dev-label">说明</text>
+        <text class="dev-value cloud-sync-hint">观看一段视频即可激活 30 天云同步</text>
+      </view>
+      <view class="cloud-sync-btn-wrap">
+        <view wx:if="{{!cloudSyncActive}}" class="btn-primary" bindtap="activateCloudSync">观看视频激活云同步</view>
+        <view wx:else class="btn-outline" bindtap="activateCloudSync">续期云同步</view>
+      </view>
+    </view>
+  </view>
+
   <!-- 底部信息 -->
   <view class="about-footer">
-    <text class="footer-text">天天记 © 2026</text>
+    <text class="footer-text">天天记 v1.1.0 © 2026</text>
     <text class="footer-text">让每一天都被温柔记录</text>
+    <view class="privacy-link" bindtap="goToPrivacy">查看隐私政策</view>
   </view>
 </view>

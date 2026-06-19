@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="privacy-content">
+    <view class="privacy-title">天天记 · 隐私政策</view>
+    <view class="privacy-date">更新日期：2026年6月20日</view>
+
+    <view class="privacy-section">
+      <text class="section-heading">一、我们收集什么信息</text>
+      <text class="section-body">天天记尊重并保护您的个人隐私。为了提供日记云同步、图片上传、自定义心情等功能，我们会收集以下信息：</text>
+      <text class="section-body">1. 微信登录凭证（openid）：用于识别用户身份</text>
+      <text class="section-body">2. 日记内容：您主动创建的日记文字和图片</text>
+      <text class="section-body">3. 自定义心情图标：您上传的表情图片</text>
+    </view>
+
+    <view class="privacy-section">
+      <text class="section-heading">二、信息如何存储</text>
+      <text class="section-body">1. 日记内容默认存储在您的设备本地</text>
+      <text class="section-body">2. 当您主动激活云同步功能后，日记内容会加密上传到我们的服务器进行备份</text>
+      <text class="section-body">3. 图片上传后会自动压缩为 WebP 格式存储</text>
+      <text class="section-body">4. 云端分享链接会在 7 天后自动过期删除</text>
+    </view>
+
+    <view class="privacy-section">
+      <text class="section-heading">三、信息如何使用</text>
+      <text class="section-body">1. 仅用于向您提供日记记录、云同步、分享等功能</text>
+      <text class="section-body">2. 绝不会将您的日记内容分享给第三方</text>
+      <text class="section-body">3. 绝不会用于商业广告推送</text>
+    </view>
+
+    <view class="privacy-section">
+      <text class="section-heading">四、广告说明</text>
+      <text class="section-body">本小程序包含微信广告组件（激励视频）。观看广告是自愿行为，用于解锁云同步、云端分享等增值功能。我们不会收集与广告相关的个人偏好信息。</text>
+    </view>
+
+    <view class="privacy-section">
+      <text class="section-heading">五、您的权利</text>
+      <text class="section-body">1. 您可以随时在「关于」页面查看云同步状态</text>
+      <text class="section-body">2. 您可以删除日记，删除后数据将从本地和云端同时移除</text>
+      <text class="section-body">3. 您可以选择不激活云同步，仅使用本地存储</text>
+    </view>
+
+    <view class="privacy-section">
+      <text class="section-heading">六、联系我们</text>
+      <text class="section-body">如有任何隐私相关问题，请通过小程序反馈功能联系我们。</text>
+    </view>
+  </view>
+</view>

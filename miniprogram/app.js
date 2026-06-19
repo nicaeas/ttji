@@ -5,10 +5,27 @@ App({
     this.initStorage();
     // 获取系统信息
     this.initSystemInfo();
+    // 静默登录（不阻塞用户操作）
+    this.silentLogin();
   },
 
   onShow() {
-    // 小程序显示时刷新全局数据
+    // 小程序从后台恢复时，如果云同步有效则自动同步
+    this.autoCloudSync();
+  },
+
+  silentLogin() {
+    const { ensureLogin } = require('./utils/request');
+    ensureLogin().then(() => {
+      // 登录成功后自动云同步
+      this.autoCloudSync();
+    });
+  },
+
+  autoCloudSync() {
+    const cloud = require('./services/cloud');
+    if (!cloud.checkCloudStatus()) return; // 未激活云同步，跳过
+    cloud.fullSync().catch(() => {}); // 静默失败，不打扰用户
   },
 
   initStorage() {

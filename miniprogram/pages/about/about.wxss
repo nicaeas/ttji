@@ -158,6 +158,24 @@
   font-weight: 500;
 }
 
+/* 云同步 */
+.cloud-sync-hint {
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+}
+
+.cloud-sync-btn-wrap {
+  padding: var(--spacing-md) 0;
+}
+
+.cloud-sync-btn-wrap .btn-primary,
+.cloud-sync-btn-wrap .btn-outline {
+  text-align: center;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: 28rpx;
+}
+
 /* 底部 */
 .about-footer {
   text-align: center;
@@ -169,4 +187,11 @@
   font-size: 24rpx;
   color: var(--color-text-hint);
   line-height: 1.8;
+}
+
+.privacy-link {
+  margin-top: var(--spacing-sm);
+  font-size: 24rpx;
+  color: var(--color-accent);
+  text-decoration: underline;
 }
