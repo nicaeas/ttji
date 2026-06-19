@@ -3,7 +3,8 @@
   style="{{moodData ? 'background-color: ' + moodData.color + '18;' : ''}}"
   bindtap="onTap"
 >
-  <text class="mood-emoji">{{moodData ? moodData.emoji : '😶'}}</text>
+  <image wx:if="{{moodData && moodData.iconUrl}}" class="mood-emoji-img" src="{{moodData.iconUrl}}" mode="aspectFill" />
+  <text wx:else class="mood-emoji">{{moodData ? moodData.emoji : '😶'}}</text>
   <text
     wx:if="{{showLabel && moodData}}"
     class="mood-label"

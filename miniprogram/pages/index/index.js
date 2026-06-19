@@ -1,7 +1,8 @@
 // pages/index/index.js - 日记列表页
 
 const { searchDiaries, deleteDiary, getCategories, getDiaryStats } = require('../../utils/storage');
-const { MOODS, SORT_OPTIONS } = require('../../utils/constants');
+const moodService = require('../../services/mood');
+const { SORT_OPTIONS } = require('../../utils/constants');
 const { groupByDate } = require('../../utils/date');
 
 Page({
@@ -18,7 +19,7 @@ Page({
     selectedSort: 'time-desc',
 
     // 筛选选项
-    moodOptions: MOODS,
+    moodOptions: [],
     sortOptions: SORT_OPTIONS,
     categoryOptions: [],
 
@@ -40,6 +41,7 @@ Page({
 
   onLoad() {
     this.loadCategories();
+    this.loadMoods();
   },
 
   onShow() {
@@ -52,6 +54,8 @@ Page({
     }
     this.loadDiaries();
     this.loadStats();
+    // 每次显示都刷新心情列表（用户可能在详情页新建了心情）
+    this.loadMoods();
   },
 
   onPullDownRefresh() {
@@ -84,6 +88,14 @@ Page({
     const categories = getCategories();
     this.setData({
       categoryOptions: [{ id: '', name: '全部分类', icon: '📂', color: '#8B7E74' }, ...categories],
+    });
+  },
+
+  loadMoods() {
+    const moods = moodService.getLocalMoods();
+    this.setData({ moodOptions: moods });
+    moodService.syncFromServer().then((serverMoods) => {
+      this.setData({ moodOptions: serverMoods });
     });
   },
 

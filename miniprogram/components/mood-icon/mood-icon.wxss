@@ -25,6 +25,22 @@
   line-height: 1;
 }
 
+.mood-emoji-img {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 6rpx;
+}
+
+.mood-sm .mood-emoji-img {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.mood-lg .mood-emoji-img {
+  width: 40rpx;
+  height: 40rpx;
+}
+
 .mood-label {
   margin-left: 6rpx;
   font-weight: 500;

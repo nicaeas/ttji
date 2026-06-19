@@ -1,7 +1,7 @@
 // pages/detail/detail.js - 日记详情/编辑页
 
 const { getDiaryById, saveDiary, deleteDiary, getCategories } = require('../../utils/storage');
-const { MOODS } = require('../../utils/constants');
+const moodService = require('../../services/mood');
 const { formatDateTime, getToday } = require('../../utils/date');
 
 Page({
@@ -26,7 +26,7 @@ Page({
     previewMode: false,
 
     // 选择器数据
-    moodOptions: MOODS,
+    moodOptions: [],
     categoryOptions: [],
     selectedMoodData: null,
     selectedCategoryData: null,
@@ -36,6 +36,10 @@ Page({
     showMoodPicker: false,
     showCategoryPicker: false,
     showDeleteConfirm: false,
+    showMoodEditor: false,
+    newMoodLabel: '',
+    newMoodColor: '#8B7355',
+    newMoodIconUrl: '',
 
     // 模板参数
     templateContent: '',
@@ -47,6 +51,9 @@ Page({
     this.setData({
       categoryOptions: [{ id: '', name: '无分类', icon: '📂', color: '#8B7E74' }, ...categories],
     });
+
+    // 加载心情列表（本地缓存优先，后台静默同步）
+    this.loadMoods();
 
     if (options.id) {
       // 编辑已有日记
@@ -193,6 +200,15 @@ Page({
 
   // ==================== 心情选择 ====================
 
+  loadMoods() {
+    const moods = moodService.getLocalMoods();
+    this.setData({ moodOptions: moods });
+    // 静默同步云端
+    moodService.syncFromServer().then((serverMoods) => {
+      this.setData({ moodOptions: serverMoods });
+    });
+  },
+
   toggleMoodPicker() {
     this.setData({ showMoodPicker: !this.data.showMoodPicker });
   },
@@ -208,6 +224,85 @@ Page({
         showMoodPicker: false,
       });
     }
+  },
+
+  // ==================== 新建自定义心情 ====================
+
+  openMoodEditor() {
+    this.setData({
+      showMoodEditor: true,
+      newMoodLabel: '',
+      newMoodColor: '#8B7355',
+      newMoodIconUrl: '',
+    });
+  },
+
+  closeMoodEditor() {
+    this.setData({ showMoodEditor: false });
+  },
+
+  preventBubble() {},
+
+  onMoodLabelInput(e) {
+    this.setData({ newMoodLabel: e.detail.value });
+  },
+
+  onMoodColorSelect(e) {
+    this.setData({ newMoodColor: e.currentTarget.dataset.color });
+  },
+
+  onMoodIconUpload() {
+    const that = this;
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sizeType: ['compressed'],
+      success(res) {
+        const tempFile = res.tempFiles[0];
+        if (tempFile.size > 2 * 1024 * 1024) {
+          wx.showToast({ title: '图标不能超过 2MB', icon: 'none' });
+          return;
+        }
+        wx.showLoading({ title: '上传中...', mask: true });
+        moodService.uploadMoodIcon(tempFile.tempFilePath).then((url) => {
+          wx.hideLoading();
+          that.setData({ newMoodIconUrl: url });
+        }).catch(() => {
+          wx.hideLoading();
+          wx.showToast({ title: '上传失败', icon: 'none' });
+        });
+      },
+    });
+  },
+
+  saveCustomMood() {
+    const label = this.data.newMoodLabel.trim();
+    if (!label) {
+      wx.showToast({ title: '请输入心情名称', icon: 'none' });
+      return;
+    }
+    const that = this;
+    wx.showLoading({ title: '保存中...', mask: true });
+    moodService.createCustomMood({
+      label: label,
+      color: this.data.newMoodColor,
+      emoji: '',
+      iconUrl: this.data.newMoodIconUrl
+    }).then((res) => {
+      wx.hideLoading();
+      // 刷新心情列表
+      return moodService.syncFromServer();
+    }).then((moods) => {
+      that.setData({
+        moodOptions: moods,
+        showMoodEditor: false,
+        mood: moods[moods.length - 1].id  // 自动选中新创建的
+      });
+      wx.showToast({ title: '心情已创建', icon: 'success' });
+    }).catch(() => {
+      wx.hideLoading();
+      wx.showToast({ title: '创建失败', icon: 'none' });
+    });
   },
 
   // ==================== 分类选择 ====================
@@ -274,9 +369,6 @@ Page({
   toggleDeleteConfirm() {
     this.setData({ showDeleteConfirm: !this.data.showDeleteConfirm });
   },
-
-  // 阻止弹窗内点击冒泡到遮罩层
-  preventBubble() {},
 
   confirmDelete() {
     wx.showModal({

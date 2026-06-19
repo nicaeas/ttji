@@ -72,7 +72,8 @@
             data-mood="{{item.id}}"
             bindtap="onSelectMood"
           >
-            <text>{{item.emoji}} {{item.label}}</text>
+            <image wx:if="{{item.iconUrl}}" class="mood-chip-img" src="{{item.iconUrl}}" mode="aspectFill" />
+            <text>{{item.iconUrl ? '' : item.emoji}} {{item.label}}</text>
           </view>
         </view>
       </scroll-view>

@@ -202,9 +202,85 @@
   margin-bottom: 4rpx;
 }
 
+.picker-emoji-img {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 6rpx;
+  margin-bottom: 4rpx;
+}
+
 .picker-label {
   font-size: 22rpx;
   color: var(--color-text-secondary);
+}
+
+.picker-add {
+  border: 2rpx dashed var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* 新建心情弹窗 */
+.mood-editor {
+  width: 84vw;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.mood-icon-upload {
+  width: 120rpx;
+  height: 120rpx;
+  border: 2rpx dashed var(--color-accent-light);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--spacing-sm);
+}
+
+.mood-icon-preview {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+}
+
+.mood-icon-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text-hint);
+  font-size: 36rpx;
+}
+
+.upload-hint {
+  font-size: 20rpx;
+  margin-top: 4rpx;
+}
+
+.color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: var(--spacing-sm);
+}
+
+.color-option {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-selected {
+  box-shadow: 0 0 0 4rpx var(--color-bg-primary), 0 0 0 6rpx currentColor;
+  transform: scale(1.1);
+}
+
+.color-check {
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 700;
 }
 
 .picker-row {

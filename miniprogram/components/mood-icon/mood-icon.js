@@ -1,7 +1,7 @@
 // components/mood-icon/mood-icon.js
-// 心情图标组件 - 显示心情 emoji + 标签
+// 心情图标组件 - 显示心情 emoji/图片 + 标签
 
-const { MOODS } = require('../../utils/constants');
+var moodService = require('../../services/mood');
 
 Component({
   properties: {
@@ -33,15 +33,15 @@ Component({
 
   observers: {
     'mood': function (newMood) {
-      const moodData = MOODS.find((m) => m.id === newMood) || null;
-      this.setData({ moodData });
+      var moodData = moodService.findMood(newMood) || null;
+      this.setData({ moodData: moodData });
     },
   },
 
   lifetimes: {
     attached() {
-      const moodData = MOODS.find((m) => m.id === this.data.mood) || null;
-      this.setData({ moodData });
+      var moodData = moodService.findMood(this.data.mood) || null;
+      this.setData({ moodData: moodData });
     },
   },
 
