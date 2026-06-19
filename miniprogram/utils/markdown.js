@@ -22,6 +22,18 @@ function parseMarkdown(text) {
       continue;
     }
 
+    // 图片 ![alt](url) — 独占一行的图片作为块级元素
+    const imgMatch = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (imgMatch) {
+      tokens.push({
+        type: 'image',
+        alt: imgMatch[1],
+        url: imgMatch[2],
+      });
+      i++;
+      continue;
+    }
+
     // 代码块 ```
     if (line.trim().startsWith('```')) {
       const lang = line.trim().slice(3).trim();
@@ -143,8 +155,19 @@ function parseInline(text) {
   let remaining = text;
 
   while (remaining.length > 0) {
+    // 图片 ![alt](url)
+    let match = remaining.match(/^!\[([^\]]*)\]\(([^)]+)\)/);
+    if (match) {
+      if (match.index > 0) {
+        tokens.push({ type: 'text', text: remaining.slice(0, match.index) });
+      }
+      tokens.push({ type: 'image', alt: match[1], url: match[2] });
+      remaining = remaining.slice(match.index + match[0].length);
+      continue;
+    }
+
     // 粗体 **text** 或 __text__
-    let match = remaining.match(/^(\*\*|__)(.*?)\1/);
+    match = remaining.match(/^(\*\*|__)(.*?)\1/);
     if (match) {
       if (match.index > 0) {
         tokens.push({ type: 'text', text: remaining.slice(0, match.index) });
@@ -199,7 +222,7 @@ function parseInline(text) {
     }
 
     // 普通文本 - 取到下一个特殊标记
-    const nextSpecial = remaining.search(/[*_~`\[\]]/);
+    const nextSpecial = remaining.search(/[!*_~`\[\]]/);
     if (nextSpecial === -1) {
       tokens.push({ type: 'text', text: remaining });
       break;

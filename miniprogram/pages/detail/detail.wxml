@@ -53,6 +53,9 @@
         <text>{{isNew ? '写日记' : '编辑日记'}}</text>
       </view>
       <view class="edit-toolbar-right">
+        <view wx:if="{{!previewMode}}" class="tool-btn" bindtap="onInsertImage">
+          <text>📷</text>
+        </view>
         <view class="tool-btn preview-toggle" bindtap="togglePreview">
           <text>{{previewMode ? '📝 编辑' : '👁️ 预览'}}</text>
         </view>

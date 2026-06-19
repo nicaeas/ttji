@@ -100,6 +100,34 @@
   white-space: pre-wrap;
 }
 
+/* 图片 */
+.md-image-block {
+  margin: var(--spacing-md) 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.md-image {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background-color: #F5F0E8;
+}
+
+.md-image-alt {
+  display: block;
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--color-text-hint);
+  margin-top: 8rpx;
+  font-style: italic;
+}
+
+.md-image-inline {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+  vertical-align: middle;
+}
+
 /* 列表 */
 .md-list {
   margin-bottom: var(--spacing-sm);

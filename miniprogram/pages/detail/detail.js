@@ -128,11 +128,61 @@ Page({
 
   onContentInput(e) {
     this.setData({ content: e.detail.value });
+    // 追踪光标位置（用于图片插入）
+    if (e.detail.cursor !== undefined) {
+      this._cursorPos = e.detail.cursor;
+    }
   },
 
-  onContentBlur() {
+  onContentBlur(e) {
+    if (e.detail.cursor !== undefined) {
+      this._cursorPos = e.detail.cursor;
+    }
     // 自动保存草稿
     this.autoSaveDraft();
+  },
+
+  // ==================== 图片插入 ====================
+
+  onInsertImage() {
+    const that = this;
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      sizeType: ['compressed'],
+      success(res) {
+        const tempFile = res.tempFiles[0];
+        // 限制 10MB
+        if (tempFile.size > 10 * 1024 * 1024) {
+          wx.showToast({ title: '图片不能超过 10MB', icon: 'none' });
+          return;
+        }
+        that.uploadAndInsertImage(tempFile.tempFilePath);
+      },
+    });
+  },
+
+  uploadAndInsertImage(filePath) {
+    const that = this;
+    wx.showLoading({ title: '上传中...', mask: true });
+    const { uploadFile, BASE_URL } = require('../../utils/request');
+    uploadFile(filePath, '/upload/image').then((data) => {
+      wx.hideLoading();
+      // 服务器返回相对路径，拼成完整 URL
+      const imgUrl = data.fullUrl.startsWith('http') ? data.fullUrl : BASE_URL.replace('/api/v1', '') + data.fullUrl;
+      const markdown = `\n![](${imgUrl})\n`;
+      const pos = that._cursorPos !== undefined ? that._cursorPos : that.data.content.length;
+      const newContent = that.data.content.slice(0, pos) + markdown + that.data.content.slice(pos);
+      that.setData({
+        content: newContent,
+      });
+      that._cursorPos = pos + markdown.length;
+      wx.showToast({ title: '图片已插入', icon: 'success' });
+    }).catch((err) => {
+      wx.hideLoading();
+      wx.showToast({ title: '上传失败', icon: 'none' });
+    });
   },
 
   // ==================== 预览模式 ====================

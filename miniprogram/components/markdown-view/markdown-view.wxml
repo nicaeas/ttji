@@ -31,7 +31,20 @@
         <text wx:elif="{{inline.type === 'inline-code'}}" class="md-inline-code">{{inline.text}}</text>
         <text wx:elif="{{inline.type === 'strikethrough'}}" class="md-strikethrough">{{inline.text}}</text>
         <text wx:elif="{{inline.type === 'link'}}" class="md-link">{{inline.text}}</text>
+        <image wx:elif="{{inline.type === 'image'}}" class="md-image-inline" src="{{inline.url}}" mode="widthFix" lazy-load="{{true}}" />
       </block>
+    </view>
+
+    <!-- 图片（块级，独占一行） -->
+    <view wx:elif="{{item.type === 'image'}}" class="md-image-block">
+      <image
+        class="md-image"
+        src="{{item.url}}"
+        mode="widthFix"
+        lazy-load="{{true}}"
+        show-menu-by-longpress="{{true}}"
+      />
+      <text wx:if="{{item.alt}}" class="md-image-alt">{{item.alt}}</text>
     </view>
 
     <!-- 引用 -->
