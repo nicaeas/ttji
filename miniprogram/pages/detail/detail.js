@@ -37,6 +37,9 @@ Page({
     showCategoryPicker: false,
     showDeleteConfirm: false,
     showMoodEditor: false,
+    showSharePanel: false,
+    showCanvasPreview: false,
+    shareImagePath: '',
     newMoodLabel: '',
     newMoodColor: '#8B7355',
     newMoodIconUrl: '',
@@ -414,6 +417,87 @@ Page({
   },
 
   // ==================== 分享 ====================
+
+  showShareOptions() {
+    this.setData({ showSharePanel: true });
+  },
+
+  closeShareOptions() {
+    this.setData({ showSharePanel: false });
+  },
+
+  // Canvas 生成分享卡片（免费）
+  shareAsCanvas() {
+    this.setData({ showSharePanel: false });
+    const that = this;
+    const moodData = require('../../services/mood').findMood(this.data.mood);
+    const diary = {
+      title: this.data.title,
+      content: this.data.content,
+      mood: this.data.mood,
+      moodLabel: moodData ? moodData.label : '',
+      createdAt: this.data.createdAt
+    };
+
+    wx.showLoading({ title: '生成中...', mask: true });
+    // 获取 canvas 节点
+    const query = wx.createSelectorQuery();
+    query.select('#shareCanvas').fields({ node: true, size: true }).exec(function (res) {
+      if (!res[0] || !res[0].node) {
+        wx.hideLoading();
+        wx.showToast({ title: '生成失败', icon: 'none' });
+        return;
+      }
+      const canvasShare = require('../../utils/canvasShare');
+      canvasShare.generateShareImage(res[0].node, diary).then(function (tempPath) {
+        wx.hideLoading();
+        that.setData({
+          showCanvasPreview: true,
+          shareImagePath: tempPath
+        });
+      }).catch(function () {
+        wx.hideLoading();
+        wx.showToast({ title: '生成失败', icon: 'none' });
+      });
+    });
+  },
+
+  closeCanvasPreview() {
+    this.setData({ showCanvasPreview: false, shareImagePath: '' });
+  },
+
+  saveShareImage() {
+    const that = this;
+    const canvasShare = require('../../utils/canvasShare');
+    canvasShare.saveToAlbum(this.data.shareImagePath).then(function () {
+      wx.showToast({ title: '已保存到相册', icon: 'success' });
+      that.setData({ showCanvasPreview: false });
+    }).catch(function () {
+      wx.showToast({ title: '保存失败', icon: 'none' });
+    });
+  },
+
+  // 云端分享链接（需看广告）
+  shareAsCloudLink() {
+    this.setData({ showSharePanel: false });
+    const that = this;
+    const shareService = require('../../services/share');
+    shareService.createCloudShare([this.data.diaryId]).then(function (res) {
+      const share = res.shares[0];
+      // 复制分享链接到剪贴板
+      const link = '天天记 · ' + (that.data.title || '日记分享') + '\n打开天天记小程序查看：' + share.shareId;
+      wx.setClipboardData({
+        data: link,
+        success: function () {
+          wx.showToast({ title: '链接已复制', icon: 'success' });
+        }
+      });
+    }).catch(function (err) {
+      if (err && err.message !== '未完成观看') {
+        wx.showToast({ title: '分享失败', icon: 'none' });
+      }
+    });
+  },
 
   onShareAppMessage() {
     return {

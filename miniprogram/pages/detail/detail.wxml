@@ -7,6 +7,9 @@
         <text class="toolbar-date">{{createdAtDisplay}}</text>
       </view>
       <view class="toolbar-right">
+        <view class="tool-btn" bindtap="showShareOptions">
+          <text>📤 分享</text>
+        </view>
         <view class="tool-btn" bindtap="enterEditMode">
           <text>✏️ 编辑</text>
         </view>
@@ -229,5 +232,48 @@
         <view class="btn-danger" bindtap="confirmDelete">删除</view>
       </view>
     </view>
+  </view>
+
+  <!-- ==================== 分享选项 ==================== -->
+  <view wx:if="{{showSharePanel}}" class="modal-mask" bindtap="closeShareOptions">
+    <view class="modal-content share-panel" catchtap="preventBubble">
+      <view class="modal-header">分享日记</view>
+      <view class="share-options">
+        <view class="share-option" bindtap="shareAsCanvas">
+          <view class="share-option-icon">🖼️</view>
+          <view class="share-option-info">
+            <text class="share-option-title">生成分享卡片</text>
+            <text class="share-option-desc">免费 · 生成精美图片，可保存到相册或发送好友</text>
+          </view>
+        </view>
+        <view class="share-option" bindtap="shareAsCloudLink">
+          <view class="share-option-icon">🔗</view>
+          <view class="share-option-info">
+            <text class="share-option-title">云端分享链接</text>
+            <text class="share-option-desc">需观看广告 · 好友点击链接直接查看完整日记</text>
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="btn-ghost" bindtap="closeShareOptions">取消</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== Canvas 分享预览 ==================== -->
+  <view wx:if="{{showCanvasPreview}}" class="modal-mask">
+    <view class="canvas-preview-wrap" catchtap="preventBubble">
+      <view class="canvas-preview-header">
+        <text class="canvas-preview-title">分享卡片预览</text>
+        <text class="canvas-preview-close" bindtap="closeCanvasPreview">✕</text>
+      </view>
+      <image wx:if="{{shareImagePath}}" class="canvas-preview-img" src="{{shareImagePath}}" mode="widthFix" />
+      <view class="canvas-preview-actions">
+        <view class="btn-ghost" bindtap="closeCanvasPreview">关闭</view>
+        <view class="btn-primary" bindtap="saveShareImage">保存到相册</view>
+      </view>
+    </view>
+    <!-- 隐藏的 Canvas 用于绘制 -->
+    <canvas type="2d" id="shareCanvas" class="share-canvas-hidden"></canvas>
   </view>
 </view>
