@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/edit/edit",
+    "pages/recycle/recycle",
+    "pages/share/share",
+    "pages/templates/templates",
+    "pages/template-edit/template-edit"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F6F5F2",
+    "navigationBarTitleText": "天天记",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F6F5F2",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

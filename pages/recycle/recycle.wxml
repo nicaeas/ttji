@@ -1,0 +1,26 @@
+<view class="page">
+  <view class="top-row" wx:if="{{notes.length}}">
+    <text class="hint">共 {{notes.length}} 篇，删除的笔记会一直保留在这里</text>
+    <text class="clear-btn" bindtap="onClear">清空</text>
+  </view>
+
+  <view class="note-card" wx:for="{{notes}}" wx:key="id">
+    <view class="card-title">{{item.title}}</view>
+    <text class="card-summary">{{item.summary}}</text>
+    <view class="card-meta">
+      <text class="card-time">删除于 {{item.deletedText}}</text>
+      <text wx:if="{{item.imageCount}}" class="card-flag">📷{{item.imageCount}}</text>
+      <text wx:if="{{item.audioCount}}" class="card-flag">🎙{{item.audioCount}}</text>
+    </view>
+    <view class="card-actions">
+      <view class="act act-restore" data-id="{{item.id}}" bindtap="onRestore">恢复</view>
+      <view class="act act-purge" data-id="{{item.id}}" bindtap="onPurge">彻底删除</view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{!notes.length}}">
+    <text class="empty-icon">🗑</text>
+    <text class="empty-text">回收站是空的</text>
+    <text class="empty-sub">删除的笔记会先移到这里，可随时恢复</text>
+  </view>
+</view>

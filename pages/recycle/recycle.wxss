@@ -1,0 +1,103 @@
+.page {
+  min-height: 100vh;
+  padding: 24rpx 24rpx 60rpx;
+  box-sizing: border-box;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4rpx 8rpx 20rpx;
+}
+.hint {
+  font-size: 24rpx;
+  color: #a0a0a0;
+}
+.clear-btn {
+  font-size: 24rpx;
+  color: #e5484d;
+  padding: 8rpx 16rpx;
+}
+
+.note-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+.card-summary {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: #8a8a8a;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.card-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 14rpx;
+}
+.card-time {
+  font-size: 22rpx;
+  color: #b5b5b5;
+  margin-right: 16rpx;
+}
+.card-flag {
+  font-size: 22rpx;
+  color: #b5b5b5;
+  margin-right: 12rpx;
+}
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+}
+.act {
+  padding: 12rpx 32rpx;
+  margin-left: 16rpx;
+  font-size: 26rpx;
+  border-radius: 999rpx;
+}
+.act:active {
+  opacity: 0.8;
+}
+.act-restore {
+  color: #b87e14;
+  background: #fff3dc;
+}
+.act-purge {
+  color: #e5484d;
+  background: #fdecec;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200rpx;
+}
+.empty-icon {
+  font-size: 96rpx;
+}
+.empty-text {
+  margin-top: 28rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #6b6b6b;
+}
+.empty-sub {
+  margin-top: 14rpx;
+  font-size: 26rpx;
+  color: #a8a8a8;
+}

@@ -1,0 +1,79 @@
+.page {
+  min-height: 100vh;
+  padding: 24rpx 32rpx 240rpx;
+  box-sizing: border-box;
+}
+
+.meta {
+  margin: 4rpx 4rpx 20rpx;
+  font-size: 24rpx;
+  color: #a8a8a8;
+}
+
+.name-input {
+  background: #ffffff;
+  border-radius: 18rpx;
+  padding: 26rpx 28rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #2c2c2c;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.content-input {
+  width: 100%;
+  height: 50vh;
+  margin-top: 20rpx;
+  background: #ffffff;
+  border-radius: 18rpx;
+  padding: 26rpx 28rpx;
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: #333;
+  box-sizing: border-box;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.ph {
+  color: #b8b8b8;
+  font-weight: normal;
+}
+
+/* 底部操作栏（适配 iPhone 底部安全区） */
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: rgba(246, 245, 242, 0.96);
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.btn {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 44rpx;
+}
+.btn:active {
+  opacity: 0.85;
+}
+.btn-danger {
+  margin-right: 20rpx;
+  color: #e5484d;
+  background: #ffffff;
+}
+.btn-ghost {
+  margin-right: 20rpx;
+  color: #b87e14;
+  background: #fff3dc;
+}
+.btn-primary {
+  color: #ffffff;
+  background: #e8a33d;
+}

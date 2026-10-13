@@ -1,0 +1,102 @@
+<view class="page">
+  <view class="meta" wx:if="{{isEdit}}">最后编辑于 {{timeText}}</view>
+
+  <!-- 快速模板（仅新建时显示），自适应换行 -->
+  <view class="tpl-bar" wx:if="{{!isEdit}}">
+    <text class="tpl-label">快速模板</text>
+    <view class="chip-wrap">
+      <view
+        wx:for="{{templates}}"
+        wx:key="id"
+        class="tpl-chip"
+        bindtap="onApplyTemplate"
+        data-id="{{item.id}}"
+      >{{item.icon}} {{item.name}}</view>
+      <view class="tpl-chip tpl-manage" bindtap="onManageTemplates">⚙ 模板管理</view>
+    </view>
+  </view>
+
+  <input
+    class="title-input"
+    placeholder="标题（可留空）"
+    placeholder-class="ph"
+    value="{{title}}"
+    bindinput="onTitleInput"
+    maxlength="50"
+  />
+
+  <textarea
+    class="content-input"
+    placeholder="开始记录…（正文输入 #标签 可自动归类）"
+    placeholder-class="ph"
+    value="{{content}}"
+    bindinput="onContentInput"
+    maxlength="{{-1}}"
+  ></textarea>
+
+  <!-- 标签编辑 -->
+  <view class="tag-editor">
+    <view class="tag-chip" wx:for="{{tags}}" wx:key="*this">
+      #{{item}}
+      <text class="tag-del" catchtap="onRemoveTag" data-tag="{{item}}">✕</text>
+    </view>
+    <input
+      class="tag-input"
+      placeholder="＋新标签，回车添加"
+      placeholder-class="ph"
+      value="{{tagInput}}"
+      bindinput="onTagInput"
+      bindconfirm="onAddTag"
+      bindblur="onAddTag"
+      confirm-type="done"
+      maxlength="20"
+    />
+  </view>
+
+  <!-- 可点选标签：预设 + 已用过的标签，自适应换行 -->
+  <view class="sug-bar" wx:if="{{sugTags.length}}">
+    <text class="sug-label">点选添加</text>
+    <view class="chip-wrap">
+      <view
+        class="sug-chip"
+        wx:for="{{sugTags}}"
+        wx:key="*this"
+        bindtap="onSugTagTap"
+        bindlongpress="onSugTagLongPress"
+        data-tag="{{item}}"
+      >#{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 图片附件 -->
+  <view class="img-grid" wx:if="{{images.length}}">
+    <view class="img-cell" wx:for="{{images}}" wx:key="*this">
+      <image class="img" src="{{displayImages[index]}}" mode="aspectFill" data-index="{{index}}" bindtap="onPreviewImage" />
+      <text class="img-del" catchtap="onRemoveImage" data-index="{{index}}">✕</text>
+    </view>
+  </view>
+
+  <!-- 语音附件 -->
+  <view class="audio-list" wx:if="{{audio.length}}">
+    <view class="audio-item" wx:for="{{audio}}" wx:key="path">
+      <text class="audio-play" data-index="{{index}}" bindtap="onTogglePlay">{{playingIndex === index ? '⏸' : '▶'}}</text>
+      <text class="audio-name">语音 {{item.duration}}″</text>
+      <text class="audio-del" catchtap="onRemoveAudio" data-index="{{index}}">✕</text>
+    </view>
+  </view>
+
+  <!-- 附件操作 -->
+  <view class="attach-row">
+    <view class="attach-btn" bindtap="onAddImages">🖼 添加图片</view>
+    <view class="attach-btn {{recording ? 'recording' : ''}}" bindtap="onToggleRecord">
+      🎙 {{recording ? '停止录音 ' + recordSeconds + 's' : '录音'}}
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="footer">
+    <view class="btn btn-danger" wx:if="{{isEdit}}" bindtap="onDelete">删除</view>
+    <view class="btn btn-ghost" wx:if="{{isEdit}}" bindtap="onShareImage">分享</view>
+    <view class="btn btn-primary" bindtap="onSave">保存</view>
+  </view>
+</view>

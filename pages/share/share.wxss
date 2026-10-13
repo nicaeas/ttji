@@ -1,0 +1,61 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32rpx 0 calc(40rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.preview-wrap {
+  position: relative;
+}
+.share-canvas {
+  width: 690rpx;
+  height: 1178rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 6rpx 30rpx rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+}
+.loading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 690rpx;
+  height: 1178rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a8a8a8;
+  font-size: 28rpx;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.actions {
+  display: flex;
+  margin-top: 44rpx;
+  padding: 0 32rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+.act-btn {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 44rpx;
+}
+.act-btn:active {
+  opacity: 0.85;
+}
+.act-btn.ghost {
+  margin-right: 20rpx;
+  color: #b87e14;
+  background: #fff3dc;
+}
+.act-btn.primary {
+  color: #ffffff;
+  background: #e8a33d;
+}

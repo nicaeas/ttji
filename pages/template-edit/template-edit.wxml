@@ -1,0 +1,28 @@
+<view class="page">
+  <view class="meta" wx:if="{{isBuiltin}}">内置模板，修改后可随时恢复默认</view>
+
+  <input
+    class="name-input"
+    placeholder="模板名称"
+    placeholder-class="ph"
+    value="{{name}}"
+    bindinput="onNameInput"
+    maxlength="12"
+  />
+
+  <textarea
+    class="content-input"
+    placeholder="模板内容…&#10;支持 #标签 自动归类、- [ ] 待办语法"
+    placeholder-class="ph"
+    value="{{content}}"
+    bindinput="onContentInput"
+    maxlength="{{-1}}"
+  ></textarea>
+
+  <!-- 底部操作栏 -->
+  <view class="footer">
+    <view class="btn btn-danger" wx:if="{{!isBuiltin && id}}" bindtap="onDelete">删除</view>
+    <view class="btn btn-ghost" wx:if="{{isBuiltin && overridden}}" bindtap="onReset">恢复默认</view>
+    <view class="btn btn-primary" bindtap="onSave">保存</view>
+  </view>
+</view>

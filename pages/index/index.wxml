@@ -1,0 +1,93 @@
+<view class="page">
+  <!-- 搜索 + 月份筛选 -->
+  <view class="filter-bar">
+    <view class="search-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索标题、内容或标签"
+        placeholder-class="ph"
+        value="{{keyword}}"
+        bindinput="onKeywordInput"
+        confirm-type="search"
+      />
+      <text wx:if="{{keyword}}" class="search-clear" bindtap="onClearKeyword">✕</text>
+    </view>
+    <view class="month-wrap">
+      <picker mode="date" fields="month" value="{{activeMonth || todayMonth}}" bindchange="onMonthChange">
+        <view class="chip {{activeMonth ? 'chip-on' : ''}}">📅 {{activeMonth || '月份'}}</view>
+      </picker>
+      <text wx:if="{{activeMonth}}" class="chip-clear" catchtap="onClearMonth">✕</text>
+    </view>
+  </view>
+
+  <!-- 标签筛选栏 -->
+  <scroll-view scroll-x class="tag-bar" wx:if="{{tags.length}}">
+    <view class="chip {{activeTag === '' ? 'chip-on' : ''}}" bindtap="onTagTap" data-tag="">全部</view>
+    <view
+      wx:for="{{tags}}"
+      wx:key="name"
+      class="chip {{activeTag === item.name ? 'chip-on' : ''}}"
+      bindtap="onTagTap"
+      bindlongpress="onTagLongPress"
+      data-tag="{{item.name}}"
+    >#{{item.name}}</view>
+  </scroll-view>
+
+  <!-- 统计 + 回收站入口 -->
+  <view class="stats-row">
+    <text class="stats" wx:if="{{total > 0}}">
+      {{keyword || activeTag || activeMonth ? '找到 ' + notes.length + ' 篇笔记' : '共 ' + total + ' 篇笔记'}}
+    </text>
+    <view class="recycle-link" bindtap="onOpenRecycle">🗑 回收站{{binCount ? ' ' + binCount : ''}}</view>
+  </view>
+
+  <!-- 笔记列表 -->
+  <view class="note-list">
+    <view
+      class="note-card {{item.pinned ? 'pinned' : ''}}"
+      wx:for="{{notes}}"
+      wx:key="id"
+      bindtap="onNoteTap"
+      bindlongpress="onNoteLongPress"
+      data-id="{{item.id}}"
+    >
+      <view class="card-title-row">
+        <text class="card-title">{{item.title}}</text>
+        <text wx:if="{{item.pinned}}" class="pin-tag">置顶</text>
+      </view>
+      <view class="card-tags" wx:if="{{item.tags.length}}">
+        <text class="card-tag" wx:for="{{item.tags}}" wx:for-item="t" wx:key="*this">#{{t}}</text>
+        <text wx:if="{{item.moreTags}}" class="card-tag-more">等{{item.tags.length + item.moreTags}}个</text>
+      </view>
+      <view class="card-body">
+        <view class="card-main">
+          <text class="card-summary">{{item.summary}}</text>
+          <view class="card-meta">
+            <text class="card-time">{{item.timeText}}</text>
+            <text wx:if="{{item.imageCount}}" class="card-flag">📷{{item.imageCount}}</text>
+            <text wx:if="{{item.audioCount}}" class="card-flag">🎙{{item.audioCount}}</text>
+          </view>
+        </view>
+        <image wx:if="{{item.thumb}}" class="card-thumb" src="{{item.thumb}}" mode="aspectFill" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态：没有笔记 -->
+  <view class="empty" wx:if="{{!notes.length && !keyword && !activeTag && !activeMonth}}">
+    <text class="empty-icon">📝</text>
+    <text class="empty-text">还没有笔记</text>
+    <text class="empty-sub">点击右下角「＋」开始记录吧</text>
+  </view>
+
+  <!-- 空状态：筛选无结果 -->
+  <view class="empty" wx:if="{{!notes.length && (keyword || activeTag || activeMonth)}}">
+    <text class="empty-icon">🔍</text>
+    <text class="empty-text">没有符合条件的笔记</text>
+    <text class="empty-sub">换个关键词或筛选条件试试</text>
+  </view>
+
+  <!-- 新建按钮 -->
+  <view class="fab" bindtap="onCreate">＋</view>
+</view>
