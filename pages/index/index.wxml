@@ -39,7 +39,10 @@
     <text class="stats" wx:if="{{total > 0}}">
       {{keyword || activeTag || activeMonth ? '找到 ' + notes.length + ' 篇笔记' : '共 ' + total + ' 篇笔记'}}
     </text>
-    <view class="recycle-link" bindtap="onOpenRecycle">🗑 回收站{{binCount ? ' ' + binCount : ''}}</view>
+    <view class="links">
+      <view class="data-link" bindtap="onOpenData">📊 数据</view>
+      <view class="recycle-link" bindtap="onOpenRecycle">🗑 回收站{{binCount ? ' ' + binCount : ''}}</view>
+    </view>
   </view>
 
   <!-- 笔记列表 -->

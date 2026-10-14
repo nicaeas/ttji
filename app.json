@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/edit/edit",
     "pages/recycle/recycle",
+    "pages/data/data",
     "pages/share/share",
     "pages/templates/templates",
     "pages/template-edit/template-edit"

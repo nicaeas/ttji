@@ -133,6 +133,10 @@ Page({
     wx.navigateTo({ url: '/pages/recycle/recycle' })
   },
 
+  onOpenData() {
+    wx.navigateTo({ url: '/pages/data/data' })
+  },
+
   // 长按卡片：置顶 / 分享为图片 / 删除
   onNoteLongPress(e) {
     const id = e.currentTarget.dataset.id

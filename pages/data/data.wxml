@@ -1,0 +1,53 @@
+<view class="page">
+  <!-- 概览 -->
+  <view class="card">
+    <view class="stat-row">
+      <view class="stat">
+        <text class="stat-num">{{active}}</text>
+        <text class="stat-label">篇日记</text>
+      </view>
+      <view class="stat">
+        <text class="stat-num">{{chars}}</text>
+        <text class="stat-label">正文字符</text>
+      </view>
+      <view class="stat">
+        <text class="stat-num">{{bin}}</text>
+        <text class="stat-label">回收站</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 月份分布 -->
+  <view class="card" wx:if="{{months.length}}">
+    <view class="card-title">月份分布</view>
+    <view class="month-grid">
+      <view class="month-cell" wx:for="{{months}}" wx:key="key">
+        <text class="month-key">{{item.key}}</text>
+        <text class="month-count">{{item.count}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 标签 -->
+  <view class="card" wx:if="{{tags.length}}">
+    <view class="card-title">标签</view>
+    <view class="chip-wrap">
+      <view class="chip" wx:for="{{tags}}" wx:key="name">#{{item.name}} · {{item.count}}</view>
+    </view>
+  </view>
+
+  <!-- 数据操作 -->
+  <view class="card">
+    <view class="card-title">数据</view>
+    <view class="btn-row">
+      <view class="btn btn-primary" bindtap="onReseed">补齐内置日记</view>
+    </view>
+    <view class="btn-row">
+      <view class="btn btn-ghost" bindtap="onImport">从微信导入 JSON</view>
+    </view>
+    <view class="btn-row">
+      <view class="btn btn-ghost" bindtap="onExport">导出备份 JSON</view>
+    </view>
+    <view class="tip">数据全部存在这台手机上，不联网、不上传。换设备时用「导出」把文件发到微信聊天，再在新设备「导入」。</view>
+  </view>
+</view>
